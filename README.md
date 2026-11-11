@@ -1,6 +1,8 @@
 # Davidian Black Napkin
 
-A circuit-modelled filter pedal plugin (LV2, VST3 and Audio Unit), built from a veroboard layout of a 1970s-style voltage-controlled filter: a resonant band-pass made from two transconductance amplifiers (OTAs), swept either by an envelope follower with attack, decay and an up/down switch, or by a sample and hold that grabs transistor noise at a clock rate you set, for stepped random filter moves.
+A circuit-modelled filter pedal plugin (LV2, VST3 and Audio Unit), modelled on a 1970s-style voltage-controlled filter pedal: a resonant band-pass made from two transconductance amplifiers (OTAs), swept either by an envelope follower with attack, decay and an up/down switch, or by a sample and hold that grabs transistor noise at a clock rate you set, for stepped random filter moves.
+
+**A close model, not an exact copy.** It is a simulation of the circuit from its component values, not a sampled or measured pedal, and some details are reasoned estimates (listed under [Estimates](#estimates)). It has not been compared side by side with a built unit, so expect it to sound close to the hardware rather than identical.
 
 ![The GUI](docs/gui.png)
 
@@ -62,7 +64,7 @@ Logic Pro and GarageBand only show an Audio Unit once macOS has registered it. I
 | Footswitches | Sample/Hold | The mode switch: envelope filter (LED off) or sample and hold (LED on) |
 | Footswitches | On | Plugin bypass, delayed to match the latency. In VST3 it is the host's bypass switch, and in an Audio Unit host's bypass turns it off. |
 
-Attack, Decay, Range and Sweep only act in envelope mode; Speed, Depth and Centre only in sample-and-hold mode, as on the board. The display shows the attack and decay time constants and the clock rate as you turn them.
+Attack, Decay, Range and Sweep only act in envelope mode; Speed, Depth and Centre only in sample-and-hold mode, as in the circuit. The display shows the attack and decay time constants and the clock rate as you turn them.
 
 The output is the band-pass, as on the pedal, so a steady low note through a filter set high comes out quiet: the effect needs the envelope (or the clock) to move the filter across your notes. At high Resonance the peak is up to 26 dB louder than the input; use Output to compensate. Input V matters more here than on most effects, because the envelope follows the input level: lower it if the filter stays open, raise it if it barely moves.
 
@@ -72,7 +74,7 @@ Knobs read 0 to 10. Drag up or down, hold Shift to fine-tune, use the mouse whee
 
 ## How it is modelled
 
-All in `src/filter.h`, with the part values from the board.
+All in `src/filter.h`, with the circuit's part values.
 
 - **Filter:** two OTA integrators (1 nF, then 30 nF, with a JFET buffer after the first) in a loop make a state-variable band-pass. The input reaches the first OTA through a 100k / 3k3 divider, and the band-pass output comes back through 100k plus the Resonance pot. Each OTA is modelled as `Iabc tanh(Vin / 2VT)`, so loud notes and high resonance compress and grit the way the chip does, and the buffer clips at the supply rails. The equations are solved each sample with trapezoidal integration, prewarped at the centre frequency, and the OTA gains are re-estimated twice per sample. Small-signal centre frequency is `Iabc / 2VT * sqrt(b / C1 C2)`, about 120 Hz to 16 kHz over the control range.
 - **Bias current:** a PNP transistor with a grounded base turns the control voltage into the OTAs' bias current (22k from the envelope, 100k from the sample and hold, 1M from +9 V). A 2M7 trickle keeps the filter at about 120 Hz when it is off, and 150 nF smooths the current (1.6 ms).
@@ -84,9 +86,9 @@ All in `src/filter.h`, with the part values from the board.
 
 `test_dsp` measures the model's band-pass with a small sine and compares it with the small-signal formulas: the centre frequency is within 1.5% from 120 Hz to 15 kHz, the peak gain within 1% and the -3 dB points within 0.03 of 0.707, at every Resonance setting. It also checks the attack and decay times, the clock rate at three Speed settings, both sweep directions, the sample-and-hold steps, OTA limiting on loud input, bypass latency, silence and every sample rate.
 
-### Estimates (not on the board)
+### Estimates
 
-The layout gives the parts but not every connection's detail, so these are reasoned estimates:
+The circuit's part values are known, but not every operating detail, so these are reasoned estimates:
 
 - The trickle current through the 2M7 resistor (taken as 2.4 uA from the OTA bias pins at about -6.5 V), and the JFET buffer's 1.5 V gate-to-source offset in the hold buffer.
 - The amount of transistor noise (2.5 V rms after amplification); the Depth trimmer scales it.

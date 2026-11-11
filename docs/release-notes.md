@@ -1,5 +1,7 @@
 Ready-made builds of the **Davidian Black Napkin**, a circuit-modelled OTA filter pedal: a resonant band-pass swept by an envelope follower (attack, decay, range, up or down) or by a clocked sample and hold of transistor noise, with its GUI. LV2 on every platform, VST3 on Windows and Audio Unit on macOS.
 
+It is a close model of the circuit, not an exact copy: a simulation from the component values, with some details estimated, and not yet compared with a built pedal.
+
 | Download | Contains | For |
 |---|---|---|
 | `…-windows-x64.zip` | LV2, VST3 | Windows 10/11, 64-bit hosts |
