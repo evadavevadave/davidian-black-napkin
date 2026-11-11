@@ -13,7 +13,7 @@
 	doap:license <http://opensource.org/licenses/GPL-3.0> ;
 	rdfs:comment "Circuit model of a 1970s-style voltage-controlled filter pedal: a resonant two-OTA state-variable band-pass swept by an envelope follower (attack, decay, range, up or down) or by a clocked sample and hold of transistor noise. GPL-3.0-or-later. Made with generative AI (Claude Code); see AI_USAGE.md in the bundle." ;
 	lv2:minorVersion 0 ;
-	lv2:microVersion 0 ;
+	lv2:microVersion 1 ;
 	lv2:optionalFeature lv2:hardRTCapable ;
 	lv2:port [
 		a lv2:AudioPort , lv2:InputPort ;

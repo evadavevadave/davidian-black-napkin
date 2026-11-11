@@ -28,7 +28,7 @@
 
 #define VENDOR      "Davidian"
 #define PLUGIN_NAME "Davidian Black Napkin"
-#define VERSION_STR "1.0.0"
+#define VERSION_STR "1.0.1"
 #define SDK_VERSION "VST 3.8.1"
 #define SUBCATS     "Fx|Filter"
 
