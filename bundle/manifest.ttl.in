@@ -1,0 +1,22 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 Davidian
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ui:   <http://lv2plug.in/ns/extensions/ui#> .
+
+# Template: the build fills in the library extension (.dll, .so or .dylib) and the
+# GUI class (ui:WindowsUI, ui:X11UI or ui:CocoaUI) for the platform.
+
+<urn:davidian:black-napkin>
+	a lv2:Plugin ;
+	lv2:binary <black_napkin@LIB_EXT@> ;
+	rdfs:seeAlso <black_napkin.ttl> .
+
+<urn:davidian:black-napkin>
+	ui:ui <urn:davidian:black-napkin#ui> .
+
+<urn:davidian:black-napkin#ui>
+	a @UI_CLASS@ ;
+	ui:binary <black_napkin_ui@LIB_EXT@> ;
+	lv2:optionalFeature ui:parent , ui:resize , ui:idleInterface ;
+	lv2:extensionData ui:idleInterface .

@@ -1,0 +1,8 @@
+build/
+build-test/
+*.obj
+*.pdb
+*.ilk
+# The reference schematic and layout stay out of version control and the bundle.
+*.pdf
+*.gif
