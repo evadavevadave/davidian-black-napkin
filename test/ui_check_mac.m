@@ -181,8 +181,8 @@ int main(int argc, char** argv)
             NSBitmapImageRep* rep = [v bitmapImageRepForCachingDisplayInRect:[v bounds]];
             float top, below;
             [v cacheDisplayInRect:[v bounds] toBitmapImageRep:rep];
-            top = brightness(rep, 1036, 50);
-            below = brightness(rep, 1036, 66);
+            top = brightness(rep, 976, 50);
+            below = brightness(rep, 976, 66);
             snprintf(label, sizeof label, "panel draws the right way up (readout %.3f, panel %.3f)", top, below);
             check(label, top < 0.08f && below > top + 0.04f);
             if (argc > 2) {
