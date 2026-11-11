@@ -62,7 +62,7 @@ VST is a registered trademark of Steinberg Media Technologies GmbH. "VST3" names
 
 ## Circuit and reference sources
 
-- **Circuit:** the model follows the component values and topology of a veroboard layout supplied by Davidian. Component values and circuit topology are facts used to write an original simulation. The layout image is not included in the bundle or in version control (`.gitignore` excludes it).
+- **Circuit:** the model follows the component values and topology of a 1970s-style voltage-controlled filter pedal circuit. Component values and circuit topology are facts used to write an original simulation; it is a close model, not an exact copy. No circuit drawings are included in the bundle or in version control.
 - **Methods:** the OTA tanh law and the trapezoidal state-variable filter are standard published methods (see the README's References).
 - **Names:** "Black Napkin" is an original model name. No other maker's brand or model names are used in the plugin's name, URI, files or GUI, and Davidian is not affiliated with any effects maker.
 - **GUI design:** original, in the Davidian house style. It does not copy any pedal's logo, wordmark, lettering or panel artwork.
